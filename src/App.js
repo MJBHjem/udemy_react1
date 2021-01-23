@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
+import person from './Person/Person'
 import Person from './Person/Person'
 
 class App extends Component {
@@ -59,6 +60,31 @@ class App extends Component {
       cursor: 'pointer',
       margin: '24px'
     }
+    let personsJSX = null
+    if (this.state.show) {
+      personsJSX = (
+        <div>
+          {this.state.persons.map(person => {
+            return (
+              <Person key={person.name} name={person.name} age={person.age} />
+            )
+          })
+
+          // <Person name={persons[0].name} age={persons[0].age} />
+          // <Person
+          //   // this bind solution allows us to pass a param with parens wo it getting fired for an infinite loop
+          //   onClickItem={this.handleSwitchName.bind(this, 'Mrs.Max')}
+          //   name={persons[1].name}
+          //   age={persons[1].age}
+          //   onChangeName={this.handleChangeName}
+          // >
+          //   My Hobbies Are Skiiing
+          // </Person>
+          // <Person name={persons[2].name} age={persons[2].age} />
+          }
+        </div>
+      )
+    }
 
     return (
       <div className='App'>
@@ -69,23 +95,7 @@ class App extends Component {
         <button style={style} onClick={() => this.handleChangeShow()}>
           Switch Show
         </button>
-        {this.state.show
-          ? (
-            <div>
-              <Person name={persons[0].name} age={persons[0].age} />
-              <Person
-              // this bind solution allows us to pass a param with parens wo it getting fired for an infinite loop
-                onClickItem={this.handleSwitchName.bind(this, 'Mrs.Max')}
-                name={persons[1].name}
-                age={persons[1].age}
-                onChangeName={this.handleChangeName}
-              >
-                My Hobbies Are Skiiing
-              </Person>
-              <Person name={persons[2].name} age={persons[2].age} />
-            </div>
-            )
-          : null}
+        {personsJSX}
       </div>
     )
   }
