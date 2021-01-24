@@ -4,7 +4,7 @@ import './Person.css'
 const person = props => {
   return (
     <div className='Person'>
-      <h1 onClick={props.onClickItem}>
+      <h1 onClick={props.onDelItem}>
         Hello I'm {props.name}, I'm {props.age}
       </h1>
 

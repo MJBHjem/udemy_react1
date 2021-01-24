@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './App.css'
-import person from './Person/Person'
 import Person from './Person/Person'
 
 class App extends Component {
@@ -8,37 +7,40 @@ class App extends Component {
     super()
     this.state = {
       persons: [
-        { name: 'A', age: '12' },
-        { name: 'B', age: '212' },
-        { name: 'C', age: '123' }
+        { id: '0', name: 'A', age: '12' },
+        { id: '1', name: 'B', age: '212' },
+        { id: '2', name: 'C', age: '123' }
       ],
-      show: false
+      show: true
     }
     this.handleSwitchName = this.handleSwitchName.bind(this)
     this.handleChangeName = this.handleChangeName.bind(this)
     this.handleChangeShow = this.handleChangeShow.bind(this)
+    this.handleDeleteName = this.handleDeleteName.bind(this)
   }
 
   handleSwitchName (newName) {
+    
+    const personsCpy = [...this.state.persons]
+    personsCpy[0].name = 'Bill'
+    personsCpy[1].name = 'Hillary'
+    personsCpy[2].name = 'Chelsea'
+
     this.setState({
-      persons: [
-        { name: 'Manix', age: '12' },
-        { name: newName, age: '312' },
-        { name: 'Ally', age: '1003' }
-      ],
-      show: true
+      persons: personsCpy
     })
   }
 
-  handleChangeName (event) {
-    this.setState({
-      persons: [
-        { name: 'Manix', age: '12' },
-        { name: event.target.value, age: '312' },
-        { name: 'Ally', age: '1003' }
-      ],
-      show: true
+  handleChangeName (idx, event) {
+    const personIdx = this.state.persons.findIndex(p => {
+      return idx === parseInt(p.id, 10)
     })
+    const person2Chgd = { ...this.state.persons[personIdx] }
+
+    person2Chgd.name = event.target.value
+    const personsCpy = [...this.state.persons]
+    personsCpy[personIdx] = person2Chgd
+    this.setState({ persons: personsCpy })
   }
 
   handleChangeShow (event) {
@@ -50,8 +52,14 @@ class App extends Component {
     })
   }
 
+  handleDeleteName (personIdx) {
+    const persons = [...this.state.persons] // ensure a copy of the state.persons rather than a pointer
+    persons.splice(personIdx, 1)
+    this.setState({ persons: persons })
+  }
+
   render () {
-    const { persons } = this.state
+    // const { persons } = this.state
     const style = {
       backgroundColor: 'white',
       font: 'inherit',
@@ -64,9 +72,16 @@ class App extends Component {
     if (this.state.show) {
       personsJSX = (
         <div>
-          {this.state.persons.map(person => {
+          {
+          this.state.persons.map((person, index) => {
             return (
-              <Person key={person.name} name={person.name} age={person.age} />
+              <Person
+                onDelItem={this.handleDeleteName.bind(this, index)}
+                onChangeName={this.handleChangeName.bind(this, index)}
+                key={person.id}
+                name={person.name}
+                age={person.age}
+              />
             )
           })
 
