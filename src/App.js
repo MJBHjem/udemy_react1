@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CharComponent from './CharComponent/CharComponent'
 
 class App extends Component {
   constructor (props) {
@@ -12,6 +13,8 @@ class App extends Component {
   }
 
   render () {
+    const uInput = this.state.userInput
+    const validTxt = uInput.length > 4 ? 'text long enough' : 'text too short'
     return (
       <div>
         <input
@@ -19,7 +22,8 @@ class App extends Component {
           onChange={this.handleTextChg}
           value={this.state.userInput}
         />
-        <p>{this.state.userInput}</p>
+        <p>{uInput} <span>{validTxt}</span></p>
+        <CharComponent />
       </div>
     )
   }
