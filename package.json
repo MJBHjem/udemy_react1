@@ -7,18 +7,26 @@
     "react-dom": "^17.0.1",
     "react-scripts": "1.1.5"
   },
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "standard --verbose | snazzy",
-    "lint-fix": "standard --fix"
+    "fix": "npx standard --fix src"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "standard": {
-    "parser": "babel-eslint",
     "env": [
       "jest"
     ]
+
+  },
+  "devDependencies": {
+    "standard": "^16.0.3"
   }
 }
