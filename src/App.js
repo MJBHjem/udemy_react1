@@ -6,6 +6,7 @@ class App extends Component {
     super(props)
 
     this.state = { userInput: '' }
+
     this.handleTextChg = this.handleTextChg.bind(this)
     this.handleCharDelete = this.handleCharDelete.bind(this)
   }
@@ -16,7 +17,10 @@ class App extends Component {
 
   handleCharDelete (id) {
     const uInput = this.state.userInput
-    const newUserInput = [...uInput.slice(0, id), ...uInput.slice(id+1)].join('')
+    const newUserInput = [
+      ...uInput.slice(0, id),
+      ...uInput.slice(id + 1)
+    ].join()
     this.setState({ userInput: newUserInput })
   }
 
@@ -24,7 +28,14 @@ class App extends Component {
     const uInput = this.state.userInput
     const validTxt = uInput.length > 4 ? 'text long enough' : 'text too short'
     const charList = [...uInput].map((c, i) => {
-      return <CharComponent key={i} id={i} char={c} onCk={() => this.handleCharDelete(i)} />
+      return (
+        <CharComponent
+          key={i}
+          id={i}
+          char={c}
+          onCk={() => this.handleCharDelete(i)}
+        />
+      )
     })
 
     return (
@@ -34,7 +45,9 @@ class App extends Component {
           onChange={this.handleTextChg}
           value={this.state.userInput}
         />
-        <p>{uInput} <span>{validTxt}</span></p>
+        <p>
+          {uInput} <span>{validTxt}</span>
+        </p>
 
         {charList}
       </div>

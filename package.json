@@ -11,7 +11,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "npx standard src && react-scripts test",
     "fix": "npx standard --fix src"
   },
   "eslintConfig": {
@@ -20,11 +20,9 @@
       "react-app/jest"
     ]
   },
-  "standard": {
-    "env": [
-      "jest"
-    ]
 
+  "standard": {
+    "env": [ "jest" ]
   },
   "devDependencies": {
     "standard": "^16.0.3"

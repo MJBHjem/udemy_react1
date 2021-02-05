@@ -8,6 +8,9 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
+// mjb fix
+const fetch = require('node-fetch')
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -31,7 +34,7 @@ export default function register () {
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`
-
+      
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
         checkValidServiceWorker(swUrl)
@@ -62,7 +65,7 @@ function registerValidSW (swUrl) {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the old content will have been purged and
-              // the fresh content will have been added to the cache.
+              // the fresh content will have been added tdeprecao the cache.
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
               console.log('New content is available; please refresh.')
@@ -83,7 +86,7 @@ function registerValidSW (swUrl) {
 
 function checkValidServiceWorker (swUrl) {
   // Check if the service worker can be found. If it can't reload the page.
-  global.fetch(swUrl)
+  fetch(swUrl)
     .then(response => {
       // Ensure service worker exists, and that we really are getting a JS file.
       if (
